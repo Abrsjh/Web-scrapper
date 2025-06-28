@@ -1,0 +1,85 @@
+# E-commerce Scraper Configuration Example
+# This configuration file demonstrates how to set up a scraper for e-commerce websites
+
+scraper:
+  # Type of scraper to use
+  type: ecommerce
+  
+  # URLs to scrape
+  urls:
+    - https://example.com/products
+    - https://example.com/categories/electronics
+  
+  # CSS selectors for extracting data
+  # These need to be customized for the specific website structure
+  selectors:
+    # Container element for each product
+    product_container: .product-item
+    
+    # Product details selectors
+    name: .product-title
+    price: .price
+    availability: .stock-status
+    images: .product-image img
+    rating: .rating
+    review_count: .review-count
+    description: .product-description
+    sku: .product-sku
+    brand: .product-brand
+    category: .product-category
+  
+  # HTTP request configuration
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+  timeout: 30        # Request timeout in seconds
+  retries: 3         # Number of retry attempts for failed requests
+  delay: 2           # Delay between requests in seconds
+  
+  # Request headers (optional)
+  headers:
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    Accept-Language: "en-US,en;q=0.5"
+  
+  # Cookies (optional)
+  cookies:
+    session_id: "example_session_id"
+  
+  # Proxy configuration (optional)
+  # proxy: "http://user:pass@proxy.example.com:8080"
+  
+  # Concurrency settings
+  max_concurrent: 5  # Maximum number of concurrent requests
+  
+  # E-commerce specific options
+  currency_symbol: "$"
+  extract_reviews: true
+  extract_images: true
+  
+  # Output configuration
+  output:
+    # Output format (csv, json, excel, db)
+    format: csv
+    
+    # Path to save the output
+    path: ./data/products.csv
+    
+    # Format-specific options
+    options:
+      # CSV options
+      encoding: utf-8
+      index: false
+      sep: ","
+      
+      # You can also specify options for other formats:
+      # JSON options
+      # indent: 2
+      # sort_keys: false
+      # ensure_ascii: false
+      
+      # Excel options
+      # sheet_name: Products
+      # freeze_panes: [1, 0]
+      # autofilter: true
+      
+      # Database options
+      # table_name: products
+      # if_exists: replace
