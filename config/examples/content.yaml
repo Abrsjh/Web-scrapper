@@ -1,0 +1,96 @@
+# Content Scraper Configuration Example
+# This configuration file demonstrates how to set up a scraper for articles and blog posts
+
+scraper:
+  # Type of scraper to use
+  type: content
+  
+  # URLs to scrape
+  urls:
+    - https://example.com/blog
+    - https://example.com/news
+  
+  # CSS selectors for extracting data
+  # These need to be customized for the specific website structure
+  selectors:
+    # Container element for each article/post listing
+    article_container: article, .post, .entry
+    
+    # Article details selectors
+    title: h1, .article-title, .entry-title
+    date: time, .published-date, .post-date, meta[property="article:published_time"]
+    author: .author, .byline, [rel="author"]
+    content: .article-content, .entry-content, .post-content
+    excerpt: .excerpt, .summary, meta[property="og:description"]
+    image: .featured-image img, meta[property="og:image"]
+    categories: .category, .tag, [rel="category"]
+  
+  # HTTP request configuration
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+  timeout: 30        # Request timeout in seconds
+  retries: 3         # Number of retry attempts for failed requests
+  delay: 2           # Delay between requests in seconds
+  
+  # Request headers (optional)
+  headers:
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    Accept-Language: "en-US,en;q=0.5"
+  
+  # Proxy configuration (optional)
+  # proxy: "http://user:pass@proxy.example.com:8080"
+  
+  # Concurrency settings
+  max_concurrent: 3  # Maximum number of concurrent requests
+  
+  # Content scraper specific options
+  extract_images: true       # Extract image URLs from content
+  extract_metadata: true     # Extract metadata (OpenGraph, Twitter Cards)
+  generate_summary: true     # Auto-generate summary if not found
+  summary_length: 150        # Maximum length of generated summaries
+  extract_keywords: true     # Extract keywords from content
+  max_keywords: 5            # Maximum number of keywords to extract
+  
+  # Pagination settings
+  follow_next_page: true     # Follow "next page" links
+  max_pages: 5               # Maximum number of pages to follow
+  
+  # RSS feed generation
+  generate_rss: true
+  rss_title: "Example Blog Feed"
+  rss_description: "Latest articles from Example Blog"
+  rss_link: "https://example.com/feed"
+  
+  # Output configuration
+  output:
+    # Output format (csv, json, excel, db)
+    format: excel
+    
+    # Path to save the output
+    path: ./data/articles.xlsx
+    
+    # Format-specific options
+    options:
+      # Excel options
+      sheet_name: Articles
+      freeze_panes: [1, 0]
+      autofilter: true
+      
+      # You can also specify options for other formats:
+      # JSON options
+      # indent: 2
+      # sort_keys: false
+      # ensure_ascii: false
+      
+      # CSV options
+      # encoding: utf-8
+      # index: false
+      # sep: ","
+      
+      # Database options
+      # table_name: articles
+      # if_exists: replace
+  
+  # Additional output for RSS feed
+  rss_output:
+    format: rss
+    path: ./data/feed.xml

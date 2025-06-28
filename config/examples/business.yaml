@@ -1,0 +1,82 @@
+# Business Directory Scraper Configuration Example
+# This configuration file demonstrates how to set up a scraper for business directories
+
+scraper:
+  # Type of scraper to use
+  type: business
+  
+  # URLs to scrape
+  urls:
+    - https://example.com/directory
+    - https://example.com/businesses/page/1
+  
+  # CSS selectors for extracting data
+  # These need to be customized for the specific website structure
+  selectors:
+    # Container element for each business listing
+    business_container: .business-listing
+    
+    # Business details selectors
+    name: .business-name
+    address: .address
+    phone: .phone
+    email: .email
+    website: .website
+    categories: .business-category
+    description: .description
+    hours: .business-hours
+    social_media: .social-links a
+  
+  # HTTP request configuration
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+  timeout: 30        # Request timeout in seconds
+  retries: 3         # Number of retry attempts for failed requests
+  delay: 3           # Delay between requests in seconds (slightly higher for directories)
+  
+  # Request headers (optional)
+  headers:
+    Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    Accept-Language: "en-US,en;q=0.5"
+  
+  # Proxy configuration (optional)
+  # proxy: "http://user:pass@proxy.example.com:8080"
+  
+  # Concurrency settings
+  max_concurrent: 3  # Lower concurrency to avoid being blocked
+  
+  # Business directory specific options
+  extract_social_media: true  # Extract social media profiles
+  validate_emails: true       # Validate extracted email addresses
+  validate_phones: true       # Validate extracted phone numbers
+  validate_urls: true         # Validate extracted URLs
+  country_code: "US"          # Country code for phone validation
+  
+  # Output configuration
+  output:
+    # Output format (csv, json, excel, db)
+    format: json
+    
+    # Path to save the output
+    path: ./data/businesses.json
+    
+    # Format-specific options
+    options:
+      # JSON options
+      indent: 2
+      sort_keys: false
+      ensure_ascii: false
+      
+      # You can also specify options for other formats:
+      # CSV options
+      # encoding: utf-8
+      # index: false
+      # sep: ","
+      
+      # Excel options
+      # sheet_name: Businesses
+      # freeze_panes: [1, 0]
+      # autofilter: true
+      
+      # Database options
+      # table_name: businesses
+      # if_exists: replace
